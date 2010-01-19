@@ -5,12 +5,13 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "redline"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{Braintree via redline: riding the rails}
+    gem.description = %Q{Manual subscriptions via the Braintree gem}
     gem.email = "james@jamesdaniels.net"
     gem.homepage = "http://github.com/jamesdaniels/redline"
     gem.authors = ["James Daniels"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
+    gem.add_development_dependency "braintree"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
