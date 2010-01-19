@@ -1,6 +1,23 @@
-= redline
+= RedLine
 
-Description goes here.
+Braintree via Redline: riding the rails
+
+Automatically makes creation/deletion/update scripts for your model, translating and syncing them with a Braintree customer profile.
+
+Planning on adding extremely light-weight subscription support.
+
+
+  class User < ActiveRecord::Base
+    acts_as_braintree_customer :business_name => :company, :firstname => :first_name, :lastname => :last_name
+    attr_accessible :firstname, :lastname, :website, :email, :business_name, :password, :password_confirmation
+  end
+
+acts_as_braintree_customer takes an optional series of attributes that represent an attribute[] mapper
+
+  james = User.find(1) #=> <User id: 1, firstname: "James", lastname: "Daniels", business_name: "MarginLeft, LLC", email: 'james@jamesdaniels.net', website: 'http://www.marginleft.com', crypted_password: "45fres8...", persistence_token: "4jsdf88...", ...>
+  james.customer #=> <Braintree::Customer id: "9999999", first_name: "James", last_name: "Daniels", company: "MarginLeft, LLC", email: "james@jamesdaniels.net", website: "http://www.marginleft.com", ..., addresses: [], credit_cards: []>
+
+More to come.
 
 == Note on Patches/Pull Requests
  

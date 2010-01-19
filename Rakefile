@@ -12,6 +12,7 @@ begin
     gem.authors = ["James Daniels"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
     gem.add_development_dependency "braintree"
+    gem.add_development_dependency "active_record"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
