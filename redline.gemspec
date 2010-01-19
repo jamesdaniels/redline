@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{redline}
-  s.version = "0.1.1"
+  s.version = "0.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["James Daniels"]
@@ -25,6 +25,10 @@ Gem::Specification.new do |s|
      "VERSION",
      "lib/redline.rb",
      "redline.gemspec",
+     "spec/db/database.yml",
+     "spec/db/models.rb",
+     "spec/db/schema.rb",
+     "spec/db/test.sqlite3",
      "spec/redline_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
@@ -35,7 +39,9 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{Braintree via redline: riding the rails}
   s.test_files = [
-    "spec/redline_spec.rb",
+    "spec/db/models.rb",
+     "spec/db/schema.rb",
+     "spec/redline_spec.rb",
      "spec/spec_helper.rb"
   ]
 
@@ -47,15 +53,18 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rspec>, [">= 1.2.9"])
       s.add_development_dependency(%q<braintree>, [">= 0"])
       s.add_development_dependency(%q<activerecord>, [">= 0"])
+      s.add_development_dependency(%q<activesupport>, [">= 0"])
     else
       s.add_dependency(%q<rspec>, [">= 1.2.9"])
       s.add_dependency(%q<braintree>, [">= 0"])
       s.add_dependency(%q<activerecord>, [">= 0"])
+      s.add_dependency(%q<activesupport>, [">= 0"])
     end
   else
     s.add_dependency(%q<rspec>, [">= 1.2.9"])
     s.add_dependency(%q<braintree>, [">= 0"])
     s.add_dependency(%q<activerecord>, [">= 0"])
+    s.add_dependency(%q<activesupport>, [">= 0"])
   end
 end
 
