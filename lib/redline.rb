@@ -1,3 +1,6 @@
+require 'rubygems'
+require 'active_record'
+
 class Hash
 	def rewrite mapping
 		inject({}) do |rewritten_hash, (original_key, value)|
