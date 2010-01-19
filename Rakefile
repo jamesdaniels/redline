@@ -7,7 +7,7 @@ begin
     gem.name = "redline"
     gem.summary = %Q{Braintree via redline: riding the rails}
     gem.description = %Q{Manual subscriptions via the Braintree gem}
-    gem.email = "james@jamesdaniels.net"
+    gem.email = "james@marginleft.com"
     gem.homepage = "http://github.com/jamesdaniels/redline"
     gem.authors = ["James Daniels"]
     gem.add_development_dependency "rspec", ">= 1.2.9"

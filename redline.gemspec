@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.authors = ["James Daniels"]
   s.date = %q{2010-01-19}
   s.description = %q{Manual subscriptions via the Braintree gem}
-  s.email = %q{james@jamesdaniels.net}
+  s.email = %q{james@marginleft.com}
   s.extra_rdoc_files = [
     "LICENSE",
      "README.rdoc"

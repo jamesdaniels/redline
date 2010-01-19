@@ -31,4 +31,4 @@ More to come.
 
 == Copyright
 
-Copyright (c) 2010 James Daniels. See LICENSE for details.
+Copyright (c) 2010 MarginLeft, LLC. See LICENSE for details.
