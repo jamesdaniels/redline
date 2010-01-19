@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "lib/redline.rb",
+     "redline.gemspec",
      "spec/redline_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
