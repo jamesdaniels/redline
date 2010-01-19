@@ -32,15 +32,12 @@ Add acts_as_braintree_customer and a column customer_id:integer to a model of yo
 
 == Example and configuration
 
-Planning on adding extremely light-weight subscription support.
-
+acts_as_braintree_customer takes an optional series of attributes that represent an attribute[] mapper
 
   class User < ActiveRecord::Base
     acts_as_braintree_customer :business_name => :company, :firstname => :first_name, :lastname => :last_name
     attr_accessible :firstname, :lastname, :website, :email, :business_name, :password, :password_confirmation
   end
-
-acts_as_braintree_customer takes an optional series of attributes that represent an attribute[] mapper
 
   james = User.find(1) #=> <User id: 1, firstname: "James", lastname: "Daniels", business_name: "MarginLeft, LLC", email: 'james@jamesdaniels.net', website: 'http://www.marginleft.com', crypted_password: "45fres8...", persistence_token: "4jsdf88...", ...>
   james.customer #=> <Braintree::Customer id: "9999999", first_name: "James", last_name: "Daniels", company: "MarginLeft, LLC", email: "james@jamesdaniels.net", website: "http://www.marginleft.com", ..., addresses: [], credit_cards: []>
