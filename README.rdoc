@@ -2,7 +2,35 @@
 
 Braintree via Redline: riding the rails
 
-Automatically makes creation/deletion/update scripts for your model, translating and syncing them with a Braintree customer profile.
+Redline helps you with Braintree on Rails, it automatically makes creation/deletion/update scripts for your model, translating and syncing them with a Braintree customer profile. In the future I plan to increase the capabilities with helpers for Braintree models and light-weight subscription support, perhaps using Braintree's reoccurring billing.
+
+== Getting started
+
+Set up the gem dependancies in environment.rb:
+
+  config.gem 'braintree'
+  config.gem 'redline'
+
+Run your install task:
+
+  $ rake gems:install
+
+Configure Braintree normally in an initializer:
+
+  Braintree::Configuration.environment = CONFIG[:braintree][:environment].to_sym
+  Braintree::Configuration.merchant_id = CONFIG[:braintree][:merchant_id]
+  Braintree::Configuration.public_key  = CONFIG[:braintree][:public_key]
+  Braintree::Configuration.private_key = CONFIG[:braintree][:private_key]
+
+Add acts_as_braintree_customer and a column customer_id:integer to a model of your choice:
+
+  add_column :users, :customer_id, :integer
+
+  Class User < ActiveRecord::Base
+    acts_as_braintree_customer
+  end
+
+== Example and configuration
 
 Planning on adding extremely light-weight subscription support.
 
