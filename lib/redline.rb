@@ -27,16 +27,16 @@ module RedLine
 				end.reject{|key, value| !wanted_attributes.include?(key)}
 			end
 			def customer
-				Braintree::Customer.find(customer_id)
+				Braintree::Customer.find(customer_id) if customer_id
 			end
 			def create_customer
 				self.customer_id = Braintree::Customer.create!(braintree_customer_attributes).id
 			end
 			def update_customer
-				Braintree::Customer.update!(customer_id, braintree_customer_attributes) && flush_cache(:customer)
+				Braintree::Customer.update!(customer_id, braintree_customer_attributes) && flush_cache(:customer) if customer_id
 			end
 			def delete_customer
-				Braintree::Customer.delete(customer_id)
+				Braintree::Customer.delete(customer_id) if customer_id
 			end
 		end
 	end
