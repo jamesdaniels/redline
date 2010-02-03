@@ -29,7 +29,10 @@ module RedLine
 				Braintree::Customer.update!(customer_id, braintree_customer_attributes) && flush_cache(:customer) if customer_id
 			end
 			def delete_customer
-				Braintree::Customer.delete(customer_id) if customer_id
+				if customer_id
+					Braintree::Customer.delete(customer_id)
+					self.customer_id = nil
+				end
 			end
 		end
 	end
