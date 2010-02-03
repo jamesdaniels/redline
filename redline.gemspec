@@ -24,11 +24,11 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "lib/redline.rb",
+     "lib/redline/customer.rb",
      "redline.gemspec",
      "spec/db/database.yml",
      "spec/db/models.rb",
      "spec/db/schema.rb",
-     "spec/db/test.sqlite3",
      "spec/redline_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
