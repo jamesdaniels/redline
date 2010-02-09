@@ -3,12 +3,21 @@ module RedLine
 		def self.included(base)
 			base.class_eval do
 				send :extend, ActiveSupport::Memoizable
+				send :extend, RedLine::Customer::Settings
 				send :include, InstanceMethods
 				memoize :customer
 				before_create  :create_customer
 				before_update  :update_customer
 				before_destroy :delete_customer
 				cattr_accessor :braintree_customer
+			end
+		end
+		module Settings
+			def set_default_customer_options
+				attribute_map {} unless (send :braintree_customer)
+			end
+			def attribute_map(attributes = {})
+				send 'braintree_customer=', attributes
 			end
 		end
 		module InstanceMethods

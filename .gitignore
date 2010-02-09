@@ -20,3 +20,4 @@ pkg
 
 ## PROJECT::SPECIFIC
 spec/db/test.sqlite3
+tmp/
