@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{redline}
-  s.version = "0.1.2"
+  s.version = "0.1.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["James Daniels"]
-  s.date = %q{2010-01-19}
+  s.date = %q{2010-02-03}
   s.description = %q{Manual subscriptions via the Braintree gem}
   s.email = %q{james@marginleft.com}
   s.extra_rdoc_files = [
@@ -24,11 +24,11 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "lib/redline.rb",
+     "lib/redline/customer.rb",
      "redline.gemspec",
      "spec/db/database.yml",
      "spec/db/models.rb",
      "spec/db/schema.rb",
-     "spec/db/test.sqlite3",
      "spec/redline_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
