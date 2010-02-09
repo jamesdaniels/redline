@@ -2,7 +2,10 @@
 
 Braintree via Redline: riding the rails
 
-Redline helps you with Braintree on Rails, it automatically makes creation/deletion/update scripts for your model, translating and syncing them with a Braintree customer profile. In the future I plan to increase the capabilities with helpers for Braintree models and light-weight subscription support, perhaps using Braintree's reoccurring billing.
+Redline helps you with Braintree on Rails, it automatically makes customer creation/deletion/update scripts for your model, translating and syncing them with a Braintree customer profile.
+Redline also includes a lightweight manual subscription billing system, if you desire that functionality.
+
+=== Please note: this repository may be a prerelease version, please read the README of the version you have installed.
 
 == Getting started
 
@@ -15,34 +18,42 @@ Run your install task:
 
   $ rake gems:install
 
-Configure Braintree normally in an initializer:
+Configure Braintree normally in an initializer and add the following magic columns to a model of your choice (e.g, User):
 
-  Braintree::Configuration.environment = CONFIG[:braintree][:environment].to_sym
-  Braintree::Configuration.merchant_id = CONFIG[:braintree][:merchant_id]
-  Braintree::Configuration.public_key  = CONFIG[:braintree][:public_key]
-  Braintree::Configuration.private_key = CONFIG[:braintree][:private_key]
+  add_column :users, :customer_id,      :integer  # Required
+  
+  add_column :users, :subscription_key, :string   # Required if User has_a_subscription
+  add_column :users, :paid_until,       :date     # Required if User has_a_subscription
+  add_column :users, :trial_until,      :date     # Required if User has_a_subscription and trial length is greater than 0.days
 
-Add acts_as_braintree_customer and a column customer_id:integer to a model of your choice:
-
-  add_column :users, :customer_id, :integer
-
-  Class User < ActiveRecord::Base
-    acts_as_braintree_customer
-  end
-
-== Example and configuration
-
-acts_as_braintree_customer takes an optional series of attributes that represent an attribute[] mapper
+And the following definition calls:
 
   class User < ActiveRecord::Base
-    acts_as_braintree_customer :business_name => :company, :firstname => :first_name, :lastname => :last_name
-    attr_accessible :firstname, :lastname, :website, :email, :business_name, :password, :password_confirmation
+  
+    has_a_braintree_customer
+  
+    has_a_subscription do
+      plans :mild => {:price => 0.00}, :medium => {:price => 5.00}, :spicy => {:price => 10.00}
+    end
+  
   end
+	
+== More advanced configuration
 
-  james = User.find(1) #=> <User id: 1, firstname: "James", lastname: "Daniels", business_name: "MarginLeft, LLC", email: 'james@jamesdaniels.net', website: 'http://www.marginleft.com', crypted_password: "45fres8...", persistence_token: "4jsdf88...", ...>
-  james.customer #=> <Braintree::Customer id: "9999999", first_name: "James", last_name: "Daniels", company: "MarginLeft, LLC", email: "james@jamesdaniels.net", website: "http://www.marginleft.com", ..., addresses: [], credit_cards: []>
+If you don't like the default settings or your user needs a field mapping, you can override many assumptions RedLine makes:
 
-More to come.
+  class User < ActiveRecord::Base
+    has_a_braintree_customer do
+      attribute_map :firstname => :first_name, :lastname => :last_name
+    end
+
+    has_a_subscription do
+      plans :mild => {:price => 0.00}, :medium => {:price => 5.00}, :spicy => {:price => 10.00}
+      default_plan :medium
+      billing_frequency 30.days, :grace_period => 7.days
+      free_trial 30.days, :reminder => 7.days
+    end
+  end
 
 == Note on Patches/Pull Requests
  
