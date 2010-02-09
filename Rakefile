@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "redline"
-    gem.summary = %Q{Braintree via redline: riding the rails}
-    gem.description = %Q{Manual subscriptions via the Braintree gem}
+    gem.summary = %Q{Syncs your AR models with Braintree (Payment Gateway) and offers a lightweight reoccurring billing script}
+    gem.description = %Q{Syncs your AR models with Braintree (Payment Gateway) and offers a lightweight reoccurring billing script}
     gem.email = "james@marginleft.com"
     gem.homepage = "http://github.com/jamesdaniels/redline"
     gem.authors = ["James Daniels"]

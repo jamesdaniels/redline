@@ -3,8 +3,9 @@ require 'active_record'
 
 module RedLine
 
-	autoload :Customer, 'redline/customer'
-	autoload :Subscription, 'redline/subscription'
+	autoload :Customer,     'redline/customer/base'
+	autoload :Subscription, 'redline/subscription/base'
+	autoload :Billing,      'redline/billing/base'
 	
 	def has_a_braintree_customer(&block)
 		send :include, RedLine::Customer

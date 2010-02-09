@@ -28,6 +28,31 @@ describe User do
 		user.subscription_key = :mild
 	end
 	
+	it 'should run billing' do
+		Braintree::Customer.stub!('_create_signature').and_return([:first_name, :last_name, :email])
+		Braintree::Customer.should_receive('create!').with(valid_user.braintree_customer_attributes).exactly(3).and_return(mock_customer)
+		users = User.subscription_plans.keys.map do |plan|
+			user = User.new(
+				:first_name => 'James', 
+				:last_name => 'Daniels', 
+				:email => 'james@marginleft.com', 
+				:unused_attribute => 'unused'
+			)
+			user.plan = plan
+			if plan == :mild
+				user.should_receive(:next_due).and_return(nil)
+				user.should_not_receive(:pay!)
+			else
+				user.should_receive(:next_due).and_return(Date.today)
+				user.should_receive(:pay!).and_return(true)
+			end
+			user.save
+			user
+		end
+		User.stub!(:all).and_return(users)
+		User.run_billing!
+	end
+	
   it "should inherit the instance methods" do
 		expected_methods = %w(braintree_customer_attributes customer create_customer update_customer delete_customer)
 		(User.instance_methods & expected_methods).sort.should eql(expected_methods.sort)
