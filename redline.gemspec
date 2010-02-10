@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{redline}
-  s.version = "0.1.4"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["James Daniels"]
-  s.date = %q{2010-02-03}
-  s.description = %q{Manual subscriptions via the Braintree gem}
+  s.date = %q{2010-02-10}
+  s.description = %q{Syncs your AR models with Braintree (Payment Gateway) and offers a lightweight reoccurring billing script}
   s.email = %q{james@marginleft.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -24,25 +24,37 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "lib/redline.rb",
-     "lib/redline/customer.rb",
+     "lib/redline/billing/base.rb",
+     "lib/redline/customer/base.rb",
+     "lib/redline/customer/instance.rb",
+     "lib/redline/customer/settings.rb",
+     "lib/redline/subscription/base.rb",
+     "lib/redline/subscription/instance.rb",
+     "lib/redline/subscription/settings.rb",
      "redline.gemspec",
+     "spec/billing_spec.rb",
+     "spec/customer_spec.rb",
      "spec/db/database.yml",
      "spec/db/models.rb",
      "spec/db/schema.rb",
      "spec/redline_spec.rb",
      "spec/spec.opts",
-     "spec/spec_helper.rb"
+     "spec/spec_helper.rb",
+     "spec/subscription_spec.rb"
   ]
   s.homepage = %q{http://github.com/jamesdaniels/redline}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
-  s.summary = %q{Braintree via redline: riding the rails}
+  s.summary = %q{Syncs your AR models with Braintree (Payment Gateway) and offers a lightweight reoccurring billing script}
   s.test_files = [
-    "spec/db/models.rb",
+    "spec/billing_spec.rb",
+     "spec/customer_spec.rb",
+     "spec/db/models.rb",
      "spec/db/schema.rb",
      "spec/redline_spec.rb",
-     "spec/spec_helper.rb"
+     "spec/spec_helper.rb",
+     "spec/subscription_spec.rb"
   ]
 
   if s.respond_to? :specification_version then
