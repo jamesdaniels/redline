@@ -5,7 +5,7 @@ module RedLine
 				attribute_map {} unless (send :braintree_customer)
 			end
 			def attribute_map(attributes = {})
-				send 'braintree_customer=', attributes
+				self.braintree_customer = attributes
 			end
 		end
 	end

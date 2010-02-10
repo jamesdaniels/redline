@@ -7,13 +7,13 @@ module RedLine
 	autoload :Subscription, 'redline/subscription/base'
 	autoload :Billing,      'redline/billing/base'
 	
-	def has_a_braintree_customer(&block)
+	def has_a_braintree_customer
 		send :include, RedLine::Customer
-		block.call if block_given?
+		yield if block_given?
 		set_default_customer_options
 	end
 	
-	def has_a_subscription(&block)
+	def has_a_subscription
 		send :include, RedLine::Subscription
 		yield if block_given?
 		set_default_subscription_options

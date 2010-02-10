@@ -1,5 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
+describe ActiveRecord do
+	it 'should extend our module' do
+		ActiveRecord::Base.is_a?(RedLine).should be_true
+	end
+end
+
 [User, ComplexUser, UserWithoutTrial].each do |klass|
 	describe klass do
 		it 'should extend our module' do
