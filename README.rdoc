@@ -7,6 +7,14 @@ Redline also includes a lightweight manual subscription billing system, if you d
 
 === Please note: this repository may be a prerelease version, please read the README of the version you have installed.
 
+== Heads up
+
+=== This software is delivered "as is" without warranty. As with any piece of code, please study it if you include it in your project, especially for such a critical component of your application.
+
+While I believe the tests cover the code well, there may be certain cases that I have not expirienced or predicted. This is a manual billing script, so dreadful things may occur; please help out and add to the tests if you see, or god forbid expirience, any problems.
+
+It is my intention to convert to gateway handled subscriptions, once Braintree adds this functionality to their gem.
+
 == Getting started
 
 Set up the gem dependancies in environment.rb:
@@ -37,7 +45,11 @@ And the following definition calls:
     end
   
   end
-	
+
+And then run this daily:
+
+  User.run_billing!
+
 == More advanced configuration
 
 If you don't like the default settings or your user needs a field mapping, you can override many assumptions RedLine makes:
