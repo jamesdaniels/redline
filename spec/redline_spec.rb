@@ -6,7 +6,7 @@ describe ActiveRecord do
 	end
 end
 
-[User, ComplexUser, UserWithoutTrial].each do |klass|
+[User, ComplexUser, UserWithoutTrial, UserWithoutSubscription].each do |klass|
 	describe klass do
 		it 'should extend our module' do
 			klass.is_a?(RedLine).should be_true
@@ -26,17 +26,17 @@ end
 		it 'should include RedLine::Customer::InstanceMethods' do
 			klass.include?(RedLine::Customer::InstanceMethods).should be_true
 		end
-		it 'should include RedLine::Subscription' do
-			klass.include?(RedLine::Subscription).should be_true
+		it "should#{(klass == UserWithoutSubscription) && ' not' || ''} include RedLine::Subscription" do
+			klass.include?(RedLine::Subscription).should eql(klass != UserWithoutSubscription)
 		end
-		it 'should extend RedLine::Subscription::Settings' do
-			klass.is_a?(RedLine::Subscription::Settings).should be_true
+		it "should#{(klass == UserWithoutSubscription) && ' not' || ''} extend RedLine::Subscription::Settings" do
+			klass.is_a?(RedLine::Subscription::Settings).should eql(klass != UserWithoutSubscription)
 		end
-		it 'should include RedLine::Subscription::InstanceMethods' do
-			klass.include?(RedLine::Subscription::InstanceMethods).should be_true
+		it "should#{(klass == UserWithoutSubscription) && ' not' || ''} include RedLine::Subscription::InstanceMethods" do
+			klass.include?(RedLine::Subscription::InstanceMethods).should eql(klass != UserWithoutSubscription)
 		end
-		it 'should include RedLine::Billing' do
-			klass.is_a?(RedLine::Billing).should be_true
+		it "should#{(klass == UserWithoutSubscription) && ' not' || ''} include RedLine::Billing" do
+			klass.is_a?(RedLine::Billing).should eql(klass != UserWithoutSubscription)
 		end
 	end
 end

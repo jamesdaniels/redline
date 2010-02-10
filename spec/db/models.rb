@@ -29,11 +29,19 @@ end
 
 class UserWithoutTrial < ActiveRecord::Base
 	
-	has_a_braintree_customer
+	has_a_braintree_customer do
+		attribute_map :firstname => :first_name, :lastname => :last_name
+	end
 	
 	has_a_subscription do
 		plans :mild => {:price => 0.00}, :medium => {:price => 5.00}, :spicy => {:price => 10.00}
 		free_trial 0.days
 	end
 	
+end
+
+class UserWithoutSubscription < ActiveRecord::Base
+
+	has_a_braintree_customer
+
 end

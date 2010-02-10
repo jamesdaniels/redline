@@ -20,10 +20,6 @@ module RedLine
 				self.customer.sale!(:amount => ("%0.2f" % plan[:price]), :options => {:submit_for_settlement => true})
 				self.paid_until = Date.today + self.class.billing_settings[:period] - (past_due || 0)
 			end
-			def pay!
-				pay
-				save
-			end
 			def past_grace?
 				past_due && past_due >= self.class.billing_settings[:grace_period]
 			end

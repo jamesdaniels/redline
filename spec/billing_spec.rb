@@ -19,6 +19,7 @@ describe User do
 	it 'should run billing' do
 		Braintree::Customer.stub!('_create_signature').and_return([:first_name, :last_name, :email])
 		Braintree::Customer.should_receive('create!').with(valid_user.braintree_customer_attributes).exactly(3).and_return(mock_customer)
+		Braintree::Customer.should_receive('update!').twice.and_return(mock_customer)
 		users = User.subscription_plans.keys.map do |plan|
 			user = User.new(
 				:first_name => 'James', 
@@ -29,16 +30,37 @@ describe User do
 			user.plan = plan
 			if plan == :mild
 				user.should_receive(:next_due).and_return(nil)
-				user.should_not_receive(:pay!)
+				user.should_not_receive(:pay)
 			else
 				user.should_receive(:next_due).and_return(Date.today)
-				user.should_receive(:pay!).and_return(true)
+				user.should_receive(:pay).and_return(true)
 			end
 			user.save
 			user
 		end
 		User.stub!(:all).and_return(users)
 		User.run_billing!
+	end
+	
+	it 'should run billing with failures' do
+		Braintree::Customer.stub!('_create_signature').and_return([:first_name, :last_name, :email])
+		Braintree::Customer.should_receive('create!').with(valid_user.braintree_customer_attributes).once.and_return(mock_customer)
+		Braintree::Customer.should_receive('update!').once.and_return(mock_customer)
+		user = User.new(
+			:first_name => 'James', 
+			:last_name => 'Daniels', 
+			:email => 'james@marginleft.com', 
+			:unused_attribute => 'unused'
+		)
+		user.plan = :medium
+		user.paid_until = Date.today - 1
+		user.trial_until = Date.today - 1
+		user.stub!('customer').and_return(mock_customer)
+		user.stub!(:pay).and_raise(ArgumentError)
+		user.save
+		User.stub!(:all).and_return([user])
+		User.run_billing!
+		user.next_due.should eql(Date.today)
 	end
 	
 	describe 'paid bill' do
