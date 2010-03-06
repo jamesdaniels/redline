@@ -56,7 +56,8 @@ If you don't like the default settings or your user needs a field mapping, you c
 
   class User < ActiveRecord::Base
     has_a_braintree_customer do
-      attribute_map :firstname => :first_name, :lastname => :last_name
+      attribute_map :first_name => :firstname, :last_name => :lastname
+      custom_fields :ip_address, :tax_id
     end
 
     has_a_subscription do

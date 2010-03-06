@@ -3,10 +3,8 @@ module RedLine
 		module InstanceMethods
 			def braintree_customer_attributes
 				wanted_attributes = Braintree::Customer._create_signature.reject{|a| a.is_a? Hash}.reject{|a| a == :id}
-				attributes.symbolize_keys.inject({}) do |rewritten_hash, (original_key, value)|
-					rewritten_hash[self.class.braintree_customer.fetch(original_key, original_key)] = value
-					rewritten_hash
-				end.reject{|key, value| !wanted_attributes.include?(key)}
+				wanted_attributes.inject({}) {|hash, key| hash.merge(key => (self.send(self.class.braintree_customer_attribute_map[key] || key) rescue nil))}.
+					merge(:custom_fields => self.class.braintree_customer_custom_fields.inject({}) {|hash, key| hash.merge(key => (self.send(self.class.braintree_customer_attribute_map[key] || key) rescue nil))})
 			end
 			def customer
 				Braintree::Customer.find(customer_id) if customer_id

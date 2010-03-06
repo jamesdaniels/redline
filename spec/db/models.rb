@@ -13,7 +13,8 @@ end
 class ComplexUser < ActiveRecord::Base
 	
 	has_a_braintree_customer do
-		attribute_map :firstname => :first_name, :lastname => :last_name
+		attribute_map :first_name => :firstname, :last_name => :lastname
+		custom_fields :unused_attribute
 	end
 	
 	has_a_subscription do
@@ -30,7 +31,8 @@ end
 class UserWithoutTrial < ActiveRecord::Base
 	
 	has_a_braintree_customer do
-		attribute_map :firstname => :first_name, :lastname => :last_name
+		attribute_map :first_name => :firstname, :last_name => :lastname, :something => :firstname
+		custom_fields :something
 	end
 	
 	has_a_subscription do

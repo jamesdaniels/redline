@@ -11,7 +11,8 @@ module RedLine
 				before_create  :create_customer
 				before_update  :update_customer
 				before_destroy :delete_customer
-				cattr_accessor :braintree_customer
+				cattr_accessor :braintree_customer_attribute_map
+				cattr_accessor :braintree_customer_custom_fields
 			end
 		end
 	end

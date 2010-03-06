@@ -17,7 +17,8 @@ describe User do
 	end
 	
 	it "should have a empty braintree_customer" do
-		User.braintree_customer.should eql({})
+		User.braintree_customer_attribute_map.should eql({})
+		User.braintree_customer_custom_fields.should eql([])
 	end
 	
   it "should inherit the instance methods" do
@@ -25,7 +26,7 @@ describe User do
 		(User.instance_methods & expected_methods).sort.should eql(expected_methods.sort)
 	end
 	it "should have proper braintree attributes" do
-		valid_user.braintree_customer_attributes.should eql({:first_name=>"James", :last_name=>"Daniels", :email=>"james@marginleft.com"})
+		valid_user.braintree_customer_attributes.should eql({:first_name=>"James", :last_name=>"Daniels", :email=>"james@marginleft.com", :custom_fields=>{}})
 	end
 	it "should fire Braintree::Customer.create!" do
 		Braintree::Customer.should_receive('create!').with(valid_user.braintree_customer_attributes).and_return(mock_customer)
@@ -61,7 +62,8 @@ end
 describe ComplexUser do
 	
 	it "should have a empty braintree_customer" do
-		ComplexUser.braintree_customer.should eql({:firstname=>:first_name, :lastname=>:last_name})
+		ComplexUser.braintree_customer_attribute_map.should eql({:first_name=>:firstname, :last_name=>:lastname})
+		ComplexUser.braintree_customer_custom_fields.should eql([:unused_attribute])
 	end
 	it "should have proper braintree attributes" do
 		Braintree::Customer.stub!('_create_signature').and_return([:first_name, :last_name, :email])
@@ -70,7 +72,25 @@ describe ComplexUser do
 			:lastname => 'Daniels', 
 			:email => 'james@marginleft.com', 
 			:unused_attribute => 'unused'
-		).braintree_customer_attributes.should eql({:first_name=>"James", :last_name=>"Daniels", :email=>"james@marginleft.com"})
+		).braintree_customer_attributes.should eql({:first_name=>"James", :last_name=>"Daniels", :email=>"james@marginleft.com", :custom_fields=>{:unused_attribute=>"unused"}})
 	end
 
+end
+
+describe UserWithoutTrial do
+	
+	it "should have a empty braintree_customer" do
+		UserWithoutTrial.braintree_customer_attribute_map.should eql({:first_name=>:firstname, :something=>:firstname, :last_name=>:lastname})
+		UserWithoutTrial.braintree_customer_custom_fields.should eql([:something])
+	end
+	it "should have proper braintree attributes" do
+		Braintree::Customer.stub!('_create_signature').and_return([:first_name, :last_name, :email])
+		UserWithoutTrial.new(
+			:firstname => 'James', 
+			:lastname => 'Daniels', 
+			:email => 'james@marginleft.com', 
+			:unused_attribute => 'unused'
+		).braintree_customer_attributes.should eql({:first_name=>"James", :custom_fields=>{:something=>"James"}, :last_name=>"Daniels", :email=>"james@marginleft.com"})
+	end
+	
 end
