@@ -26,7 +26,7 @@ describe User do
 		(User.instance_methods & expected_methods).sort.should eql(expected_methods.sort)
 	end
 	it "should have proper braintree attributes" do
-		valid_user.braintree_customer_attributes.should eql({:first_name=>"James", :last_name=>"Daniels", :email=>"james@marginleft.com", :custom_fields=>{}})
+		valid_user.braintree_customer_attributes.should eql({:first_name=>"James", :last_name=>"Daniels", :email=>"james@marginleft.com"})
 	end
 	it "should fire Braintree::Customer.create!" do
 		Braintree::Customer.should_receive('create!').with(valid_user.braintree_customer_attributes).and_return(mock_customer)
