@@ -74,6 +74,16 @@ describe ComplexUser do
 			:unused_attribute => 'unused'
 		).braintree_customer_attributes.should eql({:first_name=>"James", :last_name=>"Daniels", :email=>"james@marginleft.com", :custom_fields=>{:unused_attribute=>"unused"}})
 	end
+	
+	it "should work with nil attributes" do
+		Braintree::Customer.stub!('_create_signature').and_return([:first_name, :last_name, :email])
+		ComplexUser.new(
+			:firstname => 'James', 
+			:lastname => 'Daniels', 
+			:email => nil, 
+			:unused_attribute => 'unused'
+		).braintree_customer_attributes.should eql({:first_name=>"James", :last_name=>"Daniels", :email=> nil, :custom_fields=>{:unused_attribute=>"unused"}})
+	end
 
 end
 
