@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{redline}
-  s.version = "0.3.1"
+  s.version = "0.3.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["James Daniels"]
-  s.date = %q{2010-03-17}
+  s.date = %q{2010-04-13}
   s.description = %q{Syncs your AR models with Braintree (Payment Gateway) and offers a lightweight reoccurring billing script}
   s.email = %q{james@marginleft.com}
   s.extra_rdoc_files = [
@@ -45,7 +45,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/jamesdaniels/redline}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{Syncs your AR models with Braintree (Payment Gateway) and offers a lightweight reoccurring billing script}
   s.test_files = [
     "spec/billing_spec.rb",
@@ -64,19 +64,13 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<rspec>, [">= 1.2.9"])
       s.add_development_dependency(%q<braintree>, [">= 0"])
-      s.add_development_dependency(%q<activerecord>, [">= 0"])
-      s.add_development_dependency(%q<activesupport>, [">= 0"])
     else
       s.add_dependency(%q<rspec>, [">= 1.2.9"])
       s.add_dependency(%q<braintree>, [">= 0"])
-      s.add_dependency(%q<activerecord>, [">= 0"])
-      s.add_dependency(%q<activesupport>, [">= 0"])
     end
   else
     s.add_dependency(%q<rspec>, [">= 1.2.9"])
     s.add_dependency(%q<braintree>, [">= 0"])
-    s.add_dependency(%q<activerecord>, [">= 0"])
-    s.add_dependency(%q<activesupport>, [">= 0"])
   end
 end
 
