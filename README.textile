@@ -1,41 +1,50 @@
-= RedLine
+!http://www.jamesdaniels.net/b/redline-logo.png!
 
-Braintree via Redline: riding the rails
+h1. RedLine
+
+h2. Braintree via Redline: riding the rails
 
 Redline helps you with Braintree on Rails, it automatically makes customer creation/deletion/update scripts for your model, translating and syncing them with a Braintree customer profile.
 Redline also includes a lightweight manual subscription billing system, if you desire that functionality.
 
-=== Please note: this repository may be a prerelease version, please read the README of the version you have installed.
+*Please note:* this repository may be a prerelease version, please read the README of the version you have installed.
 
-== Heads up
+h2. Heads up
 
-=== This software is delivered "as is" without warranty. As with any piece of code, please study it if you include it in your project, especially for such a critical component of your application.
+*This software is delivered "as is" without warranty. As with any piece of code, please study it if you include it in your project, especially for such a critical component of your application.*
 
 While I believe the tests cover the code well, there may be certain cases that I have not experienced or predicted. This is a manual billing script, so dreadful things may occur; please help out and add to the tests if you see, or god forbid experience, any problems.
 
 It is my intention to convert to gateway handled subscriptions, once Braintree adds this functionality to their gem.
 
-== Getting started
+h2. Getting started
 
 Set up the gem dependancies in environment.rb:
 
+<pre>
   config.gem 'braintree'
   config.gem 'redline'
+</pre>
 
 Run your install task:
 
+<pre>
   $ rake gems:install
+</pre>
 
 Configure Braintree normally in an initializer and add the following magic columns to a model of your choice (e.g, User):
 
+<pre>
   add_column :users, :customer_id,      :integer  # Required
   
   add_column :users, :subscription_key, :string   # Required if User has_a_subscription
   add_column :users, :paid_until,       :date     # Required if User has_a_subscription
   add_column :users, :trial_until,      :date     # Required if User has_a_subscription and trial length is greater than 0.days
+</pre>
 
 And the following definition calls:
 
+<pre>
   class User < ActiveRecord::Base
   
     has_a_braintree_customer
@@ -45,15 +54,19 @@ And the following definition calls:
     end
   
   end
+</pre>
 
 And then run this daily:
 
+<pre>
   User.run_billing!
+</pre>
 
-== More advanced configuration
+h2. More advanced configuration
 
 If you don't like the default settings or your user needs a field mapping, you can override many assumptions RedLine makes:
 
+<pre>
   class User < ActiveRecord::Base
     has_a_braintree_customer do
       attribute_map :first_name => :firstname, :last_name => :lastname
@@ -67,8 +80,9 @@ If you don't like the default settings or your user needs a field mapping, you c
       free_trial 30.days, :reminder => 7.days
     end
   end
+</pre>
 
-== Note on Patches/Pull Requests
+h2. Note on Patches/Pull Requests
  
 * Fork the project.
 * Make your feature addition or bug fix.
@@ -76,6 +90,6 @@ If you don't like the default settings or your user needs a field mapping, you c
 * Commit, do not mess with rakefile, version, or history. (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
-== Copyright
+h2. Copyright
 
 Copyright (c) 2010 MarginLeft, LLC. See LICENSE for details.
