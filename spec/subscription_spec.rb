@@ -161,14 +161,14 @@ describe ComplexUser do
 				user.plan = :spicy
 				user.paid_until = Date.today - 6.days
 				user.trial_until = Date.today - 37.days
-				user.past_due.should eql(6.days)
+				user.past_due.should eql(6.days.to_f)
 			end
 			it 'should handle trials' do
 				user = ComplexUser.new
 				user.plan = :spicy
 				user.paid_until = nil
 				user.trial_until = Date.today - 1.days
-				user.past_due.should eql(1.days)
+				user.past_due.should eql(1.days.to_f)
 			end
 		end
 		describe 'not overdue' do
