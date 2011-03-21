@@ -63,18 +63,18 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rspec>, ["~> 1.2.9"])
       s.add_development_dependency(%q<metric_fu>, ["~> 2.0.1"])
       s.add_development_dependency(%q<sqlite3-ruby>, ["~> 1.3.1"])
-      s.add_runtime_dependency(%q<braintree>, ["~> 1.2.1"])
+      s.add_runtime_dependency(%q<braintree>, ["~> 2.8.0"])
     else
       s.add_dependency(%q<rspec>, ["~> 1.2.9"])
       s.add_dependency(%q<metric_fu>, ["~> 2.0.1"])
       s.add_dependency(%q<sqlite3-ruby>, ["~> 1.3.1"])
-      s.add_dependency(%q<braintree>, ["~> 1.2.1"])
+      s.add_dependency(%q<braintree>, ["~> 2.8.0"])
     end
   else
     s.add_dependency(%q<rspec>, ["~> 1.2.9"])
     s.add_dependency(%q<metric_fu>, ["~> 2.0.1"])
     s.add_dependency(%q<sqlite3-ruby>, ["~> 1.3.1"])
-    s.add_dependency(%q<braintree>, ["~> 1.2.1"])
+    s.add_dependency(%q<braintree>, ["~> 2.8.0"])
   end
 end
 

@@ -8,7 +8,7 @@ module RedLine
 				if (plan.is_a?(String) || plan.is_a?(Symbol)) && self.class.subscription_plans.keys.include?(plan.to_sym)
 					self.subscription_key = plan
 				elsif plan.is_a?(Hash)
-					self.subscription_key = self.class.subscription_plans.index(plan)
+					self.subscription_key = self.class.subscription_plans.key(plan)
 				end
 				self.paid_until = Date.today
 				self.trial_until ||= Date.today + self.class.trial_settings[:period] if trial?

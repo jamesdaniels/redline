@@ -22,11 +22,11 @@ describe User do
 	end
 	
   it "should inherit the instance methods" do
-		expected_methods = %w(braintree_customer_attributes customer create_customer update_customer delete_customer)
+		expected_methods = [:braintree_customer_attributes, :customer, :create_customer, :update_customer, :delete_customer]
 		(User.instance_methods & expected_methods).sort.should eql(expected_methods.sort)
 	end
 	it "should have proper braintree attributes" do
-		valid_user.braintree_customer_attributes.should eql({:first_name=>"James", :last_name=>"Daniels", :email=>"james@marginleft.com"})
+		valid_user.braintree_customer_attributes.should eql({:first_name=>"James", :last_name=>"Daniels", :email=>"james@marginleft.com", :company=>nil, :fax=>nil, :phone=>nil, :website=>nil})
 	end
 	it "should fire Braintree::Customer.create!" do
 		Braintree::Customer.should_receive('create!').with(valid_user.braintree_customer_attributes).and_return(mock_customer)
@@ -72,7 +72,7 @@ describe ComplexUser do
 			:lastname => 'Daniels', 
 			:email => 'james@marginleft.com', 
 			:unused_attribute => 'unused'
-		).braintree_customer_attributes.should eql({:first_name=>"James", :last_name=>"Daniels", :email=>"james@marginleft.com", :custom_fields=>{:unused_attribute=>"unused"}})
+		).braintree_customer_attributes.should eql({:first_name=>"James", :last_name=>"Daniels", :email=>"james@marginleft.com", :company=>nil, :fax=>nil, :phone=>nil, :website=>nil, :custom_fields=>{:unused_attribute=>"unused"}})
 	end
 	
 	it "should work with nil attributes" do
@@ -82,7 +82,7 @@ describe ComplexUser do
 			:lastname => 'Daniels', 
 			:email => nil, 
 			:unused_attribute => 'unused'
-		).braintree_customer_attributes.should eql({:first_name=>"James", :last_name=>"Daniels", :email=> nil, :custom_fields=>{:unused_attribute=>"unused"}})
+		).braintree_customer_attributes.should eql({:first_name=>"James", :last_name=>"Daniels", :email=> nil, :company=>nil, :fax=>nil, :phone=>nil, :website=>nil, :custom_fields=>{:unused_attribute=>"unused"}})
 	end
 
 end
@@ -100,7 +100,7 @@ describe UserWithoutTrial do
 			:lastname => 'Daniels', 
 			:email => 'james@marginleft.com', 
 			:unused_attribute => 'unused'
-		).braintree_customer_attributes.should eql({:first_name=>"James", :custom_fields=>{:something=>"James"}, :last_name=>"Daniels", :email=>"james@marginleft.com"})
+		).braintree_customer_attributes.should eql({:first_name=>"James", :custom_fields=>{:something=>"James"}, :last_name=>"Daniels", :email=>"james@marginleft.com", :company=>nil, :fax=>nil, :phone=>nil, :website=>nil})
 	end
 	
 end
